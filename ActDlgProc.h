@@ -1,5 +1,6 @@
 BOOL CALLBACK ActDlgProc(HWND hactDlgWnd,UINT iMsg,WPARAM wParam,LPARAM lParam) 
 {
+	HWND hBtn;
 	switch(iMsg)
 	{
 	case WM_INITDIALOG : hBtn=GetDlgItem(hactDlgWnd,IDC_ACTSELECT);
@@ -29,4 +30,5 @@ BOOL CALLBACK ActDlgProc(HWND hactDlgWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 					diaSelected=6;
 						  break;
 	}
+	return FALSE;
 }
