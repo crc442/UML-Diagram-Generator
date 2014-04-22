@@ -5,3 +5,27 @@
 #include "StDlgProc.h"
 #include "ActDlgProc.h"
 #include "CmptDlgProc.h"
+
+void DrawActorMetaFile(HDC hChildDc ,int lx,int ly)
+{
+	hMetaDc=CreateMetaFile(NULL);
+    	MoveToEx(hMetaDc,lx,ly+15,NULL);
+	LineTo(hMetaDc,lx,ly+30);
+	
+	MoveToEx(hMetaDc,lx,ly+22,NULL);
+	LineTo(hMetaDc,lx-20,ly+22);
+
+	MoveToEx(hMetaDc,lx,ly+22,NULL);
+	LineTo(hMetaDc,lx+20,ly+22);
+
+	MoveToEx(hMetaDc,lx,ly+30,NULL);
+	LineTo(hMetaDc,lx-20,ly+44);
+
+	MoveToEx(hMetaDc,lx,ly+30,NULL);
+	LineTo(hMetaDc,lx+20,ly+44);
+
+	Ellipse(hMetaDc,lx-15,ly-15,lx+15,ly+15);
+	hMf=CloseMetaFile(hMetaDc);
+	
+	PlayMetaFile(hChildDc,hMf);
+}
