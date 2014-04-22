@@ -10,7 +10,7 @@
 void DrawActorMetaFile(HDC hChildDc ,int lx,int ly)
 {
 	hMetaDc=CreateMetaFile(NULL);
-    	MoveToEx(hMetaDc,lx,ly+15,NULL);
+    MoveToEx(hMetaDc,lx,ly+15,NULL);
 	LineTo(hMetaDc,lx,ly+30);
 	
 	MoveToEx(hMetaDc,lx,ly+22,NULL);
