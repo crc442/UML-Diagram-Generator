@@ -74,38 +74,133 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 						}
 
 
-						// if(strcmp(tempID,"IDC_CMPTCIRCLE")==0 || strcmp(tempID,"IDC_UCELLIPSE")==0 || strcmp(tempID,"IDC_STELLIPSE")==0)
-						// {
-						// 	if(wParam & MK_LBUTTON) 
-						// 	{
+						if(strcmp(tempID,"IDC_CMPTCIRCLE")==0 || strcmp(tempID,"IDC_UCELLIPSE")==0 || strcmp(tempID,"IDC_STELLIPSE")==0)
+						{
+							if(wParam & MK_LBUTTON) 
+							{
 								
-						// 		SetROP2(hChildDc,/*R2_MASKPENNOT */ R2_NOTXORPEN);//R2_MERGEPENNOT);
+								SetROP2(hChildDc,/*R2_MASKPENNOT */ R2_NOTXORPEN);//R2_MERGEPENNOT);
 					
-						// 		Ellipse(hChildDc,lx,ly-5,oldx,oldy);
-						// 		Ellipse(hChildDc,lx,ly-5,newx,newy);
+								Ellipse(hChildDc,lx,ly-5,oldx,oldy);
+								Ellipse(hChildDc,lx,ly-5,newx,newy);
 
 								
-						// 	}
-						// 	oldx=newx;
-						// 	oldy=newy;
-						// }
+							}
+							oldx=newx;
+							oldy=newy;
+						}
 
-
-						// if(strcmp(tempID,"IDC_CMPTRECT")==0 || strcmp(tempID,"IDC_SQRECT")==0 || strcmp(tempID,"IDC_STRECT")==0 || strcmp(tempID,"IDC_UCRECT")==0 || strcmp(tempID,"IDC_OBJRECT")==0 || strcmp(tempID,"IDC_CBRECT")==0)
-						// {
-						// 	if(wParam & MK_LBUTTON) 
-						// 	{
+						if(strcmp(tempID,"IDC_CMPTCIRCLE")==0 || strcmp(tempID,"IDC_UCELLIPSE")==0 || strcmp(tempID,"IDC_STELLIPSE")==0)
+						{
+							if(wParam & MK_LBUTTON) 
+							{
 								
-						// 		SetROP2(hChildDc,R2_NOTXORPEN/*R2_MERGEPENNOT*/);//MERGEPEN);
+								SetROP2(hChildDc,/*R2_MASKPENNOT */ R2_NOTXORPEN);//R2_MERGEPENNOT);
+					
+								Ellipse(hChildDc,lx,ly-5,oldx,oldy);
+								Ellipse(hChildDc,lx,ly-5,newx,newy);
 
-						// 		Rectangle(hChildDc,lx,ly,oldx,oldy);
+								
+							}
+							oldx=newx;
+							oldy=newy;
+						}
 
-						// 		Rectangle(hChildDc,lx,ly,newx,newy);
+
+						if(strcmp(tempID,"IDC_CMPTRECT")==0 || strcmp(tempID,"IDC_SQRECT")==0 || strcmp(tempID,"IDC_STRECT")==0 || strcmp(tempID,"IDC_UCRECT")==0 || strcmp(tempID,"IDC_OBJRECT")==0 || strcmp(tempID,"IDC_CBRECT")==0)
+						{
+							if(wParam & MK_LBUTTON) 
+							{
+								
+								SetROP2(hChildDc,R2_NOTXORPEN/*R2_MERGEPENNOT*/);//MERGEPEN);
+
+								Rectangle(hChildDc,lx,ly,oldx,oldy);
+
+								Rectangle(hChildDc,lx,ly,newx,newy);
 						
-						// 	}
-						// 	oldx=newx;
-						// 	oldy=newy;
-						// }
+							}
+							oldx=newx;
+							oldy=newy;
+						}
+
+						if(strcmp(tempID,"IDC_UCHARROW")==0 || strcmp(tempID,"IDC_OBJHARROW")==0 ||strcmp(tempID,"IDC_CBHARROW")==0 ||strcmp(tempID,"IDC_SQHARROW")==0||strcmp(tempID,"IDC_STHARROW")==0||strcmp(tempID,"IDC_ACTHARROW")==0)
+						{
+							if(wParam & MK_LBUTTON) 
+							{
+								
+								SetROP2(hChildDc,R2_NOTXORPEN);
+
+								MoveToEx(hChildDc,lx,ly,NULL);
+								LineTo(hChildDc,oldx,oldy);
+								
+								MoveToEx(hChildDc,oldx,oldy,NULL);
+								LineTo(hChildDc,oldx-25,oldy-25);
+
+								MoveToEx(hChildDc,oldx,oldy,NULL);
+								LineTo(hChildDc,oldx-25,oldy+25);
+
+								
+								/*MoveToEx(hChildDc,newx,newy,NULL);
+								LineTo(hChildDc,oldx-25,oldy+25);
+								*/
+								
+								MoveToEx(hChildDc,lx,ly,NULL);
+								LineTo(hChildDc,newx,newy);
+
+								
+							}
+							oldx=newx;
+							oldy=newy;
+						}
+						if(strcmp(tempID,"IDC_CMPTHLINE")==0 || strcmp(tempID,"IDC_ACTHLINE")==0 || strcmp(tempID,"IDC_STCLINE")==0 || strcmp(tempID,"IDC_UCCLINE")==0 || strcmp(tempID,"IDC_OBJCLINE")==0 || strcmp(tempID,"IDC_CBCLINE")==0)
+						{
+							if(wParam & MK_LBUTTON) 
+							{
+								
+								SetROP2(hChildDc,R2_NOT);
+
+								MoveToEx(hChildDc,lx,ly,NULL);
+								LineTo(hChildDc,oldx,oldy);
+								
+								MoveToEx(hChildDc,lx,ly,NULL);
+								LineTo(hChildDc,newx,newy);
+
+								
+							}
+							oldx=newx;
+							oldy=newy;
+						}
+						
+						if(strcmp(tempID,"IDC_ACTFCIRCLE")==0 || strcmp(tempID,"IDC_STFCIRCLE")==0)
+						{
+							if(wParam & MK_LBUTTON) 
+							{
+								
+								SetROP2(hChildDc,R2_NOT);
+
+								Ellipse(hChildDc,lx,ly,oldx,oldy);
+
+								Ellipse(hChildDc,lx,ly,newx,newy);
+							}
+							oldx=newx;
+							oldy=newy;
+						}
+
+						if(strcmp(tempID,"IDC_CMPTRECT")==0 || strcmp(tempID,"IDC_SQRECT")==0 || strcmp(tempID,"IDC_STRECT")==0 || strcmp(tempID,"IDC_UCRECT")==0 || strcmp(tempID,"IDC_OBJRECT")==0 || strcmp(tempID,"IDC_CBRECT")==0)
+						{
+							if(wParam & MK_LBUTTON) 
+							{
+								
+								SetROP2(hChildDc,R2_NOTXORPEN/*R2_MERGEPENNOT*/);//MERGEPEN);
+
+								Rectangle(hChildDc,lx,ly,oldx,oldy);
+
+								Rectangle(hChildDc,lx,ly,newx,newy);
+						
+							}
+							oldx=newx;
+							oldy=newy;
+						}
 
 						
 
