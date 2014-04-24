@@ -152,6 +152,51 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 							oldx=newx;
 							oldy=newy;
 						}
+						if(strcmp(tempID,"IDC_ACTDLINE")==0)
+						{
+							if(wParam & MK_LBUTTON) 
+							{
+								
+								SetROP2(hChildDc,R2_NOTXORPEN);
+
+								MoveToEx(hChildDc,lx,ly,NULL);
+								LineTo(hChildDc,oldx,oldy);
+								
+								MoveToEx(hChildDc,lx,ly+1,NULL);
+								LineTo(hChildDc,oldx,oldy+1);
+								
+								MoveToEx(hChildDc,lx,ly+2,NULL);
+								LineTo(hChildDc,oldx,oldy+2);
+								
+								MoveToEx(hChildDc,lx,ly+3,NULL);
+								LineTo(hChildDc,oldx,oldy+3);
+								
+								MoveToEx(hChildDc,lx,ly+4,NULL);
+								LineTo(hChildDc,oldx,oldy+4);
+
+								MoveToEx(hChildDc,lx,ly,NULL);
+								LineTo(hChildDc,newx,newy);
+
+								MoveToEx(hChildDc,lx,ly+1,NULL);
+								LineTo(hChildDc,newx,newy+1);
+								
+								MoveToEx(hChildDc,lx,ly+2,NULL);
+								LineTo(hChildDc,newx,newy+2);
+
+								MoveToEx(hChildDc,lx,ly+3,NULL);
+								LineTo(hChildDc,newx,newy+3);
+
+								MoveToEx(hChildDc,lx,ly+4,NULL);
+								LineTo(hChildDc,newx,newy+4);
+								
+								/*Rectangle(hChildDc,lx,ly,oldx,oldy+4);
+
+								Rectangle(hChildDc,lx,ly,newx,newy+4);
+								*/
+							}
+							oldx=newx;
+							oldy=newy;
+						}
 						if(strcmp(tempID,"IDC_CMPTHLINE")==0 || strcmp(tempID,"IDC_ACTHLINE")==0 || strcmp(tempID,"IDC_STCLINE")==0 || strcmp(tempID,"IDC_UCCLINE")==0 || strcmp(tempID,"IDC_OBJCLINE")==0 || strcmp(tempID,"IDC_CBCLINE")==0)
 						{
 							if(wParam & MK_LBUTTON) 
@@ -256,7 +301,30 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 						MoveToEx(hChildDc,lineRect[i].left,lineRect[i].top,NULL);
 						LineTo(hChildDc,lineRect[i].right,lineRect[i].bottom);
 					}
+					for(i=0;i<rectcnt;i++)
+					{
+						Rectangle(hChildDc,rectRect[i].left ,rectRect[i].top ,rectRect[i].right ,rectRect[i].bottom );
+					}
 
+					for(i=0;i<ellipsecnt;i++)
+					{
+						Ellipse(hChildDc,ellipseRect[i].left ,ellipseRect[i].top ,ellipseRect[i].right ,ellipseRect[i].bottom );
+					}
+
+					for(i=0;i<actorcnt;i++)
+					{
+						DrawActorMetaFile(hChildDc,actorPt[i].x ,actorPt[i].y);
+					    
+					}
+					hBrush=(HBRUSH)GetStockObject(BLACK_BRUSH);
+					for(i=0;i<fcirclecnt;i++)
+					{
+						SelectObject(hChildDc,hBrush);
+						Ellipse(hChildDc,fcircleRect[i].left ,fcircleRect[i].top ,fcircleRect[i].right ,fcircleRect[i].bottom );
+					}
+					DeleteObject(hBrush);
+					EndPaint(hChildWnd,&ps);
+					break;
 					
 					hBrush=(HBRUSH)GetStockObject(BLACK_BRUSH);
 					for(i=0;i<fcirclecnt;i++)
