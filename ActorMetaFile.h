@@ -150,6 +150,11 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 								
 								SetROP2(hChildDc,R2_NOTXORPEN);
 
+								MoveToEx(hChildDc,lx,ly,NULL);
+								LineTo(hChildDc,oldx,oldy);
+								
+								MoveToEx(hChildDc,oldx,oldy,NULL);
+								LineTo(hChildDc,oldx-25,oldy-25);
 
 								MoveToEx(hChildDc,oldx,oldy,NULL);
 								LineTo(hChildDc,oldx-25,oldy+25);
@@ -267,14 +272,14 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 						if(strcmp(tempID,"IDC_ACTHLINE")==0 || strcmp(tempID,"IDC_STCLINE")==0 || strcmp(tempID,"IDC_UCCLINE")==0 || strcmp(tempID,"IDC_OBJCLINE")==0 || strcmp(tempID,"IDC_CBCLINE")==0)						
 							SetRect(&lineRect[linecnt++],lx,ly,newx,newy);
 						if(strcmp(tempID,"IDC_UCELLIPSE")==0 || strcmp(tempID,"IDC_STELLIPSE")==0)
-							
+							SetRect(&ellipseRect[ellipsecnt++],lx,ly,newx,newy);
 						if(strcmp(tempID,"IDC_SQRECT")==0 || strcmp(tempID,"IDC_STRECT")==0 || strcmp(tempID,"IDC_UCRECT")==0 || strcmp(tempID,"IDC_OBJRECT")==0 || strcmp(tempID,"IDC_CBRECT")==0)
 							SetRect(&rectRect[rectcnt++],lx,ly,newx,newy);
 						if(strcmp(tempID,"IDC_ACTFCIRCLE")==0 || strcmp(tempID,"IDC_STFCIRCLE")==0)
 							SetRect(&fcircleRect[fcirclecnt++],lx,ly,newx,newy);
 						if(strcmp(tempID,"IDC_UCACTOR")==0)
 						{
-							HIWORD(lParam));  
+								DrawActorMetaFile(GetDC(hChildWnd),LOWORD(lParam),HIWORD(lParam));  
 								actorPt[actorcnt].x=LOWORD(lParam);
 								actorPt[actorcnt++].y =HIWORD(lParam);
 						}
@@ -312,7 +317,11 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 					 mii.wID =IDM_DELETE;
 					 mii.dwTypeData ="&Delete";
 					 mii.cch =8;
-					 ii);
+					 InsertMenuItem(hSubMenu,5,1,&mii);
+					 mii.wID =IDM_SELALL;
+					 mii.dwTypeData ="Select A&ll";
+					 mii.cch =8;
+					 InsertMenuItem(hSubMenu,6,1,&mii);
 
 					 mii.wID =IDM_REFRESH;
 					 mii.dwTypeData ="Re&fresh";
