@@ -6,14 +6,23 @@
 #include "ActDlgProc.h"
 #include "CmptDlgProc.h"
 
+static int linecnt,ellipsecnt,rectcnt,actorcnt,fcirclecnt;
 
-static RECT lineRect[10];
-static RECT ellipseRect[10],fcircleRect[10];
-static RECT rectRect[10];
-static POINT actorPt[10];
+	static RECT lineRect[10];
+	static RECT ellipseRect[10],fcircleRect[10];
+	static RECT rectRect[10];
+	static POINT actorPt[10];
 
-oid DrawActorMetaFile(HDC hChildDc ,int lx,int ly)
+
+	
+	static HMETAFILE hMf;
+HDC hChildDc,hMetaDc;
+
+void DrawActorMetaFile(HDC hChildDc ,int lx,int ly)
 {
+	hMetaDc=CreateMetaFile(NULL);
+    	MoveToEx(hMetaDc,lx,ly+15,NULL);
+	LineTo(hMetaDc,lx,ly+30);
 	
 	MoveToEx(hMetaDc,lx,ly+22,NULL);
 	LineTo(hMetaDc,lx-20,ly+22);
@@ -32,6 +41,7 @@ oid DrawActorMetaFile(HDC hChildDc ,int lx,int ly)
 	
 	PlayMetaFile(hChildDc,hMf);
 }
+
 
 LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 {
