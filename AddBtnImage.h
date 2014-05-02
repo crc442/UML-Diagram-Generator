@@ -18,7 +18,12 @@ void AddBtnImage(HMENU hMenu,int cshow)
 	case 7 : SendMessage(hStatus1,SB_SETTEXT,1,(WPARAM)"Component Diagram");
 			 AddTreeItem("Component Diagram");
 			 DeleteDlg();
-			 hcmptDlg=CreateDialog(hInst,"IDD_CMPTDIALOG",hWnd,(DLGPROC)CmptDlgProc)
+			 hcmptDlg=CreateDialog(hInst,"IDD_CMPTDIALOG",hWnd,(DLGPROC)CmptDlgProc);
+			 SendDlgItemMessage(hcmptDlg,IDC_CMPTSELECT,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_SELICON"));
+			 SendDlgItemMessage(hcmptDlg,IDC_CMPTCMPT,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_CMPTICON"));
+			 SendDlgItemMessage(hcmptDlg,IDC_CMPTDVARROW,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_DVARROW"));
+			 SendDlgItemMessage(hcmptDlg,IDC_CMPTHLINE,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_CLICON"));
+			 SendDlgItemMessage(hcmptDlg,IDC_CMPTCIRCLE,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_EICON"));
 			 SendDlgItemMessage(hcmptDlg,IDC_CMPTRECT,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_RICON"));
 			 EnableMenuItem(hMenu,IDM_TOOLBOX,MF_ENABLED);
 	  	     CheckMenuItem (hMenu,IDM_TOOLBOX,MF_CHECKED);
@@ -29,6 +34,10 @@ void AddBtnImage(HMENU hMenu,int cshow)
 			hactDlg=CreateDialog(hInst,"IDD_ACTDIALOG",hWnd,(DLGPROC)ActDlgProc);
 			SendDlgItemMessage(hactDlg,IDC_ACTHARROW,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_ARROW"));
 			SendDlgItemMessage(hactDlg,IDC_ACTDBLCIRCLE,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_DBLCICON"));
+			SendDlgItemMessage(hactDlg,IDC_ACTFCIRCLE,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_DCICON"));
+			SendDlgItemMessage(hactDlg,IDC_ACTCRECT,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_CRICON"));
+			SendDlgItemMessage(hactDlg,IDC_ACTHLINE,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_LINEICON"));
+			SendDlgItemMessage(hactDlg,IDC_ACTSELECT,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_SELICON"));
 			SendDlgItemMessage(hactDlg,IDC_ACTDMD,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_DMNDICON"));
 			SendDlgItemMessage(hactDlg,IDC_ACTUDARROW,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_UDARROW"));
 			SendDlgItemMessage(hactDlg,IDC_ACTDLINE,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_DARKLINE"));
@@ -53,6 +62,9 @@ void AddBtnImage(HMENU hMenu,int cshow)
 			DeleteDlg();
 			hsqDlg=CreateDialog(hInst,"IDD_SQDIALOG",hWnd,(DLGPROC)SeqDlgProc);
 			SendDlgItemMessage(hsqDlg,IDC_SQHARROW,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_ARROW"));
+			SendDlgItemMessage(hsqDlg,IDC_SQUDARROW,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_UDARROW"));
+			SendDlgItemMessage(hsqDlg,IDC_SQSELECT,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_SELICON"));
+			SendDlgItemMessage(hsqDlg,IDC_SQRECT,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_RICON"));
 			SendDlgItemMessage(hsqDlg,IDC_SQDBLLINE,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_DBLLINE"));
 			SendDlgItemMessage(hsqDlg,IDC_SQCROSS,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_CROSSICON"));
 			SendDlgItemMessage(hsqDlg,IDC_SQDLINE,BM_SETIMAGE,(WPARAM)IMAGE_ICON,(LPARAM)LoadIcon(hInst,"IDI_SEQLINE"));
