@@ -8,7 +8,7 @@ BOOL CALLBACK ADlgProc(HWND hDlgWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 						   break;
 		case WM_COMMAND : switch(LOWORD(wPairam))
 						  {
-								case ID_AOK : EndDialog(hDlgWnd);
+								case ID_AOK : EndDialog(hDlgWnd, 0);
 											break;
 						  }
 						  break;
