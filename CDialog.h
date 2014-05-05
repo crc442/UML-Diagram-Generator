@@ -13,7 +13,7 @@ BOOL CALLBACK CDlgProc(HWND hDlgWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 		case WM_INITDIALOG :hBtn=GetDlgItem(hDlgWnd,IDOK);
 		  				 SetFocus(hBtn);
 						 break;
-		case WM_CLOSE :	EndDialog(hDlgWnd,0);
+		case WM_CLOSE :	EndDialog(hDlgWnd);
 						break;
 	}
 	return FALSE;
