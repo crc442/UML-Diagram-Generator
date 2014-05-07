@@ -44,6 +44,12 @@ void DrawActorMetaFile(HDC hChildDc,int lx,int ly)
 	hMetaDc=CreateMetaFile(NULL);
     MoveToEx(hMetaDc,lx+sbHorz+sbVert,ly+sbHorz+sbVert+15,NULL);
 	LineTo(hMetaDc,lx+sbHorz+sbVert,ly+sbHorz+sbVert+30);
+	MoveToEx(hMetaDc,lx+sbHorz+sbVert,ly+sbHorz+sbVert+22,NULL);
+	LineTo(hMetaDc,lx+sbHorz+sbVert-20,ly+sbHorz+sbVert+22);
+	MoveToEx(hMetaDc,lx+sbHorz+sbVert,ly+sbHorz+sbVert+22,NULL);
+	LineTo(hMetaDc,lx+sbHorz+sbVert+20,ly+sbHorz+sbVert+22);
+	MoveToEx(hMetaDc,lx+sbHorz+sbVert,ly+sbHorz+sbVert+30,NULL);
+	LineTo(hMetaDc,lx+sbHorz+sbVert-20,ly+sbHorz+sbVert+44);
 	MoveToEx(hMetaDc,lx+sbHorz+sbVert,ly+sbHorz+sbVert+30,NULL);
 	LineTo(hMetaDc,lx+sbHorz+sbVert+20,ly+sbHorz+sbVert+44);
 	Ellipse(hMetaDc,lx+sbHorz+sbVert-15,ly+sbHorz+sbVert-15,lx+sbHorz+sbVert+15,ly+sbHorz+sbVert+15);
@@ -339,6 +345,15 @@ void DrawDeplMetaFile(HDC hChildDc,int lx,int ly)
 {//type=22 Draws Deployment Symbol
 	hMetaDc=CreateMetaFile(NULL);
 	Rectangle(hChildDc,lx-60,ly-60,lx+60,ly+60);
+    MoveToEx(hChildDc,lx-60,ly-60,NULL);
+	LineTo(hChildDc,lx-30,ly-90);
+	MoveToEx(hChildDc,lx+60,ly-60,NULL);
+	LineTo(hChildDc,lx+90,ly-90);
+	MoveToEx(hChildDc,lx-30,ly-90,NULL);
+	LineTo(hChildDc,lx+90,ly-90);
+	MoveToEx(hChildDc,lx+60,ly+59,NULL);
+	LineTo(hChildDc,lx+90,ly+29);
+	MoveToEx(hChildDc,lx+90,ly-90,NULL);
 	LineTo(hChildDc,lx+90,ly+30);
 	hMf=CloseMetaFile(hMetaDc);
 	PlayMetaFile(hChildDc,hMf);
@@ -513,6 +528,27 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 				if(vertPos<0)
 					vertPos = 0;
 				sbvtFlag=0;
+				break;
+			case SB_LINEDOWN:
+				vertPos+=5;
+				if(vertPos>500)
+					vertPos =500;
+				sbvtFlag=1;
+				break;
+			case SB_PAGEUP:
+				vertPos-=10;
+				if(vertPos<0)
+					vertPos = 0;
+				sbvtFlag=0;
+				break;
+			case SB_PAGEDOWN:
+				vertPos+=10;
+				if(vertPos>500)
+					vertPos =500;
+				sbvtFlag=1;
+				break;
+			case SB_THUMBPOSITION:
+				if(sbhzOld<vertPos)
 					sbvtFlag=1;
 				else
 					sbvtFlag=0;
@@ -708,8 +744,24 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 							oldx=newx;
 							oldy=newy;
 						}
-						
-						if(strcmp(tempID,"IDC_DEPLDEPL")==0)
+						if(strcmp(tempID,"IDC_ACTDLINE")==0)
+						{//type=19
+							if(wParam & MK_LBUTTON) 
+							{
+								hPen=CreatePen(PS_SOLID,5,RGB(0,0,0));
+								SelectObject(hChildDc,hPen);
+								SetROP2(hChildDc,R2_NOTXORPEN);
+								MoveToEx(hChildDc,lx-5,ly,NULL);
+								LineTo(hChildDc,oldx,oldy);
+								MoveToEx(hChildDc,lx-5,ly,NULL);
+								LineTo(hChildDc,newx,newy);
+								DeleteObject(hPen);
+							}
+							oldx=newx;
+							oldy=newy;
+						}	  
+
+						/*if(strcmp(tempID,"IDC_DEPLDEPL")==0)
 						 {//type=22
 							if(wParam & MK_LBUTTON)
 							{
@@ -724,7 +776,7 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 							 EnableMenuItem(hMenu,IDM_SAVE,MF_ENABLED);
 							oldx=newx;
 							oldy=newy;
-						 }
+						 }*/
 						if(strcmp(tempID,"IDC_CMPTDVARROW")==0)
 						{//type=21
 							if(wParam & MK_LBUTTON)
@@ -785,7 +837,7 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 						}
                             
 
-						if(strcmp(tempID,"IDC_TEXT")==0)
+						/*if(strcmp(tempID,"IDC_TEXT")==0)
 						{
 
                             UML[umlCnt].diaNo =diaSelected;
@@ -794,7 +846,7 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 							SetRect(&UML[umlCnt++].Rect,lx,ly,newx,newy);
 
 
-						}
+						}*/
 						if(strcmp(tempID,"IDC_ACTDBLCIRCLE")==0||strcmp(tempID,"IDC_STDBLCIRCLE")==0)
 						{//type16 
 							 
@@ -933,7 +985,44 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 							EnableMenuItem(hMenu,IDM_SAVE,MF_ENABLED);
 							EnableMenuItem(hMenu,IDM_PRINT,MF_ENABLED);
 						}
-					
+						if(strcmp(tempID,"IDC_CMPTDVARROW")==0)
+						{//type=21
+							UML[umlCnt].type =21;
+							UML[umlCnt].diaNo =diaSelected;
+							UML[umlCnt].undo =0;
+							SetRect(&UML[umlCnt++].Rect,lx,ly,newx,newy);
+							EnableMenuItem(hMenu,IDM_SAVE,MF_ENABLED);
+							EnableMenuItem(hMenu,IDM_PRINT,MF_ENABLED);
+						}
+						 							
+						 
+						 
+						if(umlCnt>0)//Used to enable item from Floating menu
+						{
+						  EnableMenuItem(hMenu,IDM_UNDO,MF_ENABLED);
+						   
+						}
+						if(strcmp(tempID,"IDC_DEPLSELECT")==0 || strcmp(tempID,"IDC_CLSSELECT")==0 || strcmp(tempID,"IDC_UCSELECT")==0 || strcmp(tempID,"IDC_ACTSELECT")==0 || strcmp(tempID,"IDC_OBJSELECT")==0 || strcmp(tempID,"IDC_SQSELECT")==0 || strcmp(tempID,"IDC_CMPTSELECT")==0 || strcmp(tempID,"IDC_STSELECT")==0 || strcmp(tempID,"IDC_CBSELECT")==0)
+						{//rectFlag=1 i.e. dotted Rect is drawn for Selection
+							rectFlag=1;
+							 
+							EnableMenuItem(hMenu,IDM_COPY,MF_ENABLED);
+							 
+							SetRect(&DottedRect,lx,ly,LOWORD(lParam),HIWORD(lParam));
+							
+							for(i=0;i<umlCnt;i++)
+							{
+							   if(DottedRect.left<=UML[i].Rect.left && DottedRect.top <=UML[i].Rect.top)
+							   {
+								   
+								    
+								        hClipboardEmf=CopyMetaFile(hMf,NULL);
+										SetClipboardData(CF_ENHMETAFILE,hMf);
+								        // InvalidateRect(hChildWnd,DottedRect,FALSE);
+								   break;
+							   }
+							}  
+						}
 						break;
 	case WM_LBUTTONDBLCLK:
 				
