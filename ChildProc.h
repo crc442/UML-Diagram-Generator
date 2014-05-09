@@ -554,7 +554,7 @@ LRESULT CALLBACK ChildProc(HWND hChildWnd,UINT iMsg,WPARAM wParam,LPARAM lParam)
 					sbvtFlag=0;
 				vertPos = HIWORD(wParam);
 			}
-			sbVert=vertPos + 1;
+			sbVert=vertPos;
 //sbHorz * -1 is done to move to up and if up scroll button
 //is pressed then it is incremented by 1 because it takes the
 //default Rect from UML not updated by scrolling down
