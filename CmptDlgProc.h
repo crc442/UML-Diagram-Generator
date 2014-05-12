@@ -3,7 +3,7 @@ BOOL CALLBACK CmptDlgProc(HWND hcmptDlgWnd,UINT iMsg,WPARAM wParam,LPARAM lParam
 	HWND hBtn;
 	switch(iMsg)
 	{
-	case WM_INITDIALOG : hBtn=GetDlgItem();
+	case WM_INITDIALOG : hBtn=GetDlgItem(hcmptDlgWnd,IDC_STSELECT);
 						 SetFocus(hBtn);
 						break;
 	case WM_COMMAND : switch(LOWORD(wParam))
@@ -24,9 +24,11 @@ BOOL CALLBACK CmptDlgProc(HWND hcmptDlgWnd,UINT iMsg,WPARAM wParam,LPARAM lParam
 						  break;
 				
 		case WM_CLOSE : EndDialog(hcmptDlgWnd,0);
-						CheckMenuItem(h);
+						CheckMenuItem(hMenu,IDM_TOOLBOX,MF_UNCHECKED);
 					    break;
 	}
-	
 	return FALSE;
 }
+
+
+
