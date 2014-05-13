@@ -5,6 +5,7 @@ BOOL CALLBACK CmptDlgProc(HWND hcmptDlgWnd,UINT iMsg,WPARAM wParam,LPARAM lParam
 	{
 	case WM_INITDIALOG : hBtn=GetDlgItem(hcmptDlgWnd,IDC_STSELECT);
 						 SetFocus(hBtn);
+						 diaSelected=7;
 						break;
 	case WM_COMMAND : switch(LOWORD(wParam))
 						  {
