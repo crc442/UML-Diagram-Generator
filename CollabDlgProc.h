@@ -3,8 +3,9 @@ BOOL CALLBACK CollabDlgProc(HWND hcbDlgWnd,UINT iMsg,WPARAM wParam,LPARAM lParam
 	HWND hBtn;
 	switch(iMsg)
 	{
-	case WM_INITDIALOG : hBtn=GetDlgItem();
+	case WM_INITDIALOG : hBtn=GetDlgItem(hcbDlgWnd,IDC_CBSELECT);
 						 SetFocus(hBtn);
+						 diaSelected=3;
 						break;
 		case WM_CLOSE : EndDialog(hcbDlgWnd,0);
 						CheckMenuItem(hMenu,IDM_TOOLBOX,MF_UNCHECKED);
