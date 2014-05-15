@@ -6,6 +6,15 @@ static HMETAFILE hClipboardEmf;
 static int diaSelected;
 static int undoArr[9];
 static int umlCnt,clsCnt;
+
+//bars on the top
+static int openFlag=0;
+static char tempID[20]="",szEditText[50];
+
+static HWND hStatus1;
+static HMENU hMenu,hSubMenu;
+
+
 //Scroll Bar
 static int sbVert,sbHorz,sbhzFlag,sbvtFlag,sbhzOld,sbvtOld;
 static int vertPos,horzPos;
