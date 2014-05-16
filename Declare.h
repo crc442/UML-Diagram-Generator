@@ -7,12 +7,7 @@ static int diaSelected;
 static int undoArr[9];
 static int umlCnt,clsCnt;
 
-//bars on the top
-static int openFlag=0;
-static char tempID[20]="",szEditText[50];
 
-static HWND hStatus1;
-static HMENU hMenu,hSubMenu;
 
 
 //Scroll Bar
@@ -62,4 +57,11 @@ void AddTreeItem(char string[20],int cshow)
 	 hTreeWnd[cshow]=(HTREEITEM)SendMessage(htvwWnd,TVM_INSERTITEM,treecnt++,(LPARAM)&tvs);
 }
 
+
+//bars on the top
+static int openFlag=0;
+static char tempID[20]="",szEditText[50];
+
+static HWND hStatus1;
+static HMENU hMenu,hSubMenu;
  
