@@ -54,7 +54,7 @@ void AddTreeItem(char string[20],int cshow)
 	 tvs.hInsertAfter=TVI_SORT;
 	 tvs.hParent =hTreeItem;
 	 tvs.item =tvi;
-	 hTreeWnd[cshow]=(HTREEITEM)SendMessage(htvwWnd,TVM_INSERTITEM,treecnt++,(LPARAM)&tvs);
+	 hTreeWnd[cshow]=(HTREEITEM)SendMessage(htvwWnd,TVM_INSERTITEM,treecnt+2,(LPARAM)&tvs);
 }
 
 
